@@ -1,0 +1,9 @@
+!This program demonstrates what we would do
+SET a = 10
+SET b = 100
+PRINT b
+SET b = a
+PRINT b
+PRINT 2.5 !lol internet
+SET 2.5.1 = 2.51
+PRINT 2.5.1
