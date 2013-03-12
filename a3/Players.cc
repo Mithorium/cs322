@@ -46,6 +46,16 @@ RPSGame::Move RockRPSPlayer::chooseMove() {
 }
 REGISTER_RPSPLAYER(RockRPSPlayer);
 
+RPSGame::Move PaperRPSPlayer::chooseMove() {
+  return RPSGame::PAPER;
+}
+REGISTER_RPSPLAYER(PaperRPSPlayer);
+
+RPSGame::Move ScissorRPSPlayer::chooseMove() {
+  return RPSGame::SCISSOR;
+}
+REGISTER_RPSPLAYER(ScissorRPSPlayer);
+
 BeatOpponentsPreviousMoveRPSPlayer::BeatOpponentsPreviousMoveRPSPlayer() {
   prevMove = RPSGame::NONE;
 }
@@ -95,3 +105,41 @@ RPSGame::Move RandomRPSPlayer::chooseMove() {
   }
 }
 REGISTER_RPSPLAYER(RandomRPSPlayer);
+
+SequentialRPSPlayer::SequentialRPSPlayer() {
+  counter = rand() % 3;
+}
+RPSGame::Move SequentialRPSPlayer::chooseMove() {
+  counter = (counter+1) % 3;
+  switch (counter) {
+    case 0:
+      return RPSGame::ROCK;
+    case 1:
+      return RPSGame::PAPER;
+    case 2:
+      return RPSGame::SCISSOR;
+    default:
+      throw std::runtime_error("Impossible error!");
+      break;
+  }
+}
+REGISTER_RPSPLAYER(SequentialRPSPlayer);
+
+ReverseSequentialRPSPlayer::ReverseSequentialRPSPlayer() {
+  counter = rand() % 3;
+}
+RPSGame::Move ReverseSequentialRPSPlayer::chooseMove() {
+  counter = (counter+1) % 3;
+  switch (counter) {
+    case 0:
+      return RPSGame::SCISSOR;
+    case 1:
+      return RPSGame::PAPER;
+    case 2:
+      return RPSGame::ROCK;
+    default:
+      throw std::runtime_error("Impossible error!");
+      break;
+  }
+}
+REGISTER_RPSPLAYER(ReverseSequentialRPSPlayer);

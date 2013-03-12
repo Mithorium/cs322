@@ -7,7 +7,7 @@ RPSGame::RPSGame(RPSPlayer *playerOne, RPSPlayer *playerTwo) : p1(playerOne), p2
 }
 
 RPSGame::Result RPSGame::play(unsigned short int rounds) {
-  unsigned short int p1wins = 0, p2wins = 0;
+  unsigned short int p1wins = 0, p2wins = 0, threshold = rounds/2;
   for(;rounds;--rounds) {
     switch (playRound()) {
       case PLAYERONEWIN:
@@ -18,6 +18,9 @@ RPSGame::Result RPSGame::play(unsigned short int rounds) {
         break;
       default:
         break;
+    }
+    if (p1wins > threshold || p2wins > threshold) {
+      break;
     }
   }
   if (p1wins > p2wins) {

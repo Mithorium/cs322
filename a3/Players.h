@@ -24,6 +24,24 @@ private:
   DECLARE_RPSPLAYER(RockRPSPlayer);
 };
 
+class PaperRPSPlayer : public RPSPlayer {
+public:
+  RPSGame::Move chooseMove();
+protected:
+  const char* name() const { return "PaperRPSPlayer"; }
+private:
+  DECLARE_RPSPLAYER(PaperRPSPlayer);
+};
+
+class ScissorRPSPlayer : public RPSPlayer {
+public:
+  RPSGame::Move chooseMove();
+protected:
+  const char* name() const { return "ScissorRPSPlayer"; }
+private:
+  DECLARE_RPSPLAYER(ScissorRPSPlayer);
+};
+
 class BeatOpponentsPreviousMoveRPSPlayer : public RPSPlayer {
 public:
   BeatOpponentsPreviousMoveRPSPlayer();
@@ -44,6 +62,28 @@ protected:
   const char* name() const { return "RandomRPSPlayer"; }
 private:
   DECLARE_RPSPLAYER(RandomRPSPlayer);
+};
+
+class SequentialRPSPlayer : public RPSPlayer {
+public:
+  SequentialRPSPlayer();
+  RPSGame::Move chooseMove();
+protected:
+  const char* name() const { return "SequentialRPSPlayer"; }
+private:
+  unsigned char counter;
+  DECLARE_RPSPLAYER(SequentialRPSPlayer);
+};
+
+class ReverseSequentialRPSPlayer : public RPSPlayer {
+public:
+  ReverseSequentialRPSPlayer();
+  RPSGame::Move chooseMove();
+protected:
+  const char* name() const { return "ReverseSequentialRPSPlayer"; }
+private:
+  unsigned char counter;
+  DECLARE_RPSPLAYER(ReverseSequentialRPSPlayer);
 };
 
 #endif
