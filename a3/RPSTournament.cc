@@ -1,7 +1,7 @@
 #include "RPSTournament.h"
 #include "Players.h"
 
-RPSTournament::RPSTournament(unsigned int numPlayers) {
+RPSTournament::RPSTournament(unsigned int numPlayers, RPSTournamentMatchFormat *format) : matchFormat(format) {
   if (numPlayers == 0) {
     throw std::invalid_argument("numPlayers must be greater than 0");
   }
@@ -19,7 +19,8 @@ RPSTournament::~RPSTournament() {
 void RPSTournament::play() {
   unsigned int round = 0;
   unsigned int size;
-  std::cout << "Tournament format: Best of 1 (Sudden Death) w/ up to 2 tiebreaker matches\n";
+  std::cout << "Tournament format: Single-elimination (Sudden Death)\n";
+  std::cout << "Match format: " << matchFormat << "\n";
   while ((size = (unsigned int)roster.size()) > 1) {
     std::cout << "Round " << ++round << ":\n"
               << "Competitors: " << size << "\n";
@@ -32,11 +33,8 @@ void RPSTournament::play() {
       RPSPlayer *p2 = Util::pop_random(players);
       RPSGame oRPSGame(p1,p2);
       
-      unsigned char rounds = 3;
       RPSGame::Result result;
-      do {
-        result = oRPSGame.playRound();
-      } while (--rounds && result == RPSGame::TIE);
+      matchFormat->playMatch(oRPSGame, result);
       switch (result) {
         case RPSGame::PLAYERONEWIN:
           std::cout << p1 << " (Win) vs. " << p2 << "\n";

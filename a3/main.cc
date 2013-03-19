@@ -2,10 +2,15 @@
 #include "RPSGame.h"
 #include "RPSPlayer.h"
 #include "Players.h"
+#include "RPSTournamentMatchFormat.h"
+#include "RPSTournamentMatchFormats.h"
 #include "RPSTournament.h"
 
 int main(int argc, char **argv) {
-  /* TODO different tournament or game formats */
-  RPSTournament oRPSTournament(128);
+  srand(time(nullptr));
+  RPSTournamentMatchFormat *format = RPSTournamentMatchFormatFactory::createRPSTournamentMatchFormat("Comp322RPSTournamentMatchFormat");
+  // RPSTournamentMatchFormat *format = RPSTournamentMatchFormatFactory::createRPSTournamentMatchFormat("BestOfThreeRPSTournamentMatchFormat");
+  RPSTournament oRPSTournament(128, format);
   oRPSTournament.play();
+  RPSTournamentMatchFormatFactory::recycle(format);
 }
